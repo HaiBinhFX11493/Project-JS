@@ -1,0 +1,29 @@
+.chiaBang {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.image001 {
+    height: 200px;
+    width: 330px;
+}
+
+.backGround {
+    background-color: orange;
+    text-align: center;
+    height: 90px;
+    width: 100%;
+    font-size: 50px;
+    display: block;
+}
+
+.backGround1 {
+    display: none;
+}
+
+.kinhLup {
+    background-color: orange;
+    /* display: block; */
+    border: none;
+    outline: none;
+}

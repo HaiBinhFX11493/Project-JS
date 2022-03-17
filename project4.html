@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="project4js.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" style="width: 100%;">
+
+        <!-- Trigger the modal with a button -->
+
+        <div class="backGround" class="backGround">My new
+            <button class="kinhLup" onclick=" btnseach()" data-toggle="modal" data-target="#myModal">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="btnSeach2" class="backGround1">
+                            <form onsubmit="return false">
+                                <input id="duLieuNhap" type="text" name="search" placeholder="Search..">
+                                <button onclick="Search() ">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <ul id="post-block"></ul>
+    <script>
+        var token = "40883a395d121a4ddd89a2e25dee077c"
+        var apiDefault = 'https://gnews.io/api/v4/top-headlines?&token=' + token
+        fetdata(apiDefault);
+
+        function fetdata(postAPI) {
+            fetch(postAPI)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    console.log("data", data)
+
+                    var html = data.articles.map((ele) => {
+                        var contentMap = ele.content
+                        return `<div class= "chiaBang">
+                       <div> <img class ="image001" src =${ele.image}></img></div>
+                       <div>
+                        <a href = ${ele.url}> <h2>${ele.title}</h2></a>
+                         <h3>${ele.description}</h3>
+                        <p> ${ele.content}</p>
+                        </div> </div>`
+                    });
+
+                    var htmls = html.join('')
+                    document.getElementById("post-block").innerHTML = htmls
+                });
+
+        }
+
+        function btnseach() {
+            document.getElementById("btnSeach2").style.display = "block";
+        };
+
+        function Search() {
+            valueOnchange = document.getElementById("duLieuNhap").value;
+            var apiSearch = 'https://gnews.io/api/v4/search?q=' + valueOnchange + '&token=' + token
+            fetdata(apiSearch)
+        }
+    </script>
+</body>
+
+</html>
